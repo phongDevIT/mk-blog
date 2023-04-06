@@ -1,10 +1,18 @@
+import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/auth-context";
+import SignupPage from "./pages/SignupPage";
+
 function App() {
     return (
         <div>
-            pong Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Expedita modi id sed amet debitis, labore distinctio eligendi ut
-            magnam sunt, recusandae praesentium, a maiores veniam eius iure
-            totam inventore quasi.
+            <AuthProvider>
+                <Routes>
+                    <Route
+                        path="/sign-up"
+                        element={<SignupPage></SignupPage>}
+                    ></Route>
+                </Routes>
+            </AuthProvider>
         </div>
     );
 }
