@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { Label } from "../components/label/label";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/input/input";
-import { IconEyeClose, IconEyeOpen } from "../components/icon";
 import Field from "../components/field/Field";
 import { Button } from "../components/button";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import { async } from "@firebase/util";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 // const SignupPageStyles = styled.div`
 //     min-height: 100vh;
 //     padding: 40px;
@@ -90,7 +88,7 @@ const SignupPage = () => {
     });
     const handleSignUp = async (values) => {
         if (!isValid) return;
-        const user = await createUserWithEmailAndPassword(
+        await createUserWithEmailAndPassword(
             auth,
             values.email,
             values.password
@@ -112,7 +110,6 @@ const SignupPage = () => {
         //     }, 5000);
         // });
     };
-    const [togglePassWord, setTogglePassWord] = useState(false);
     useEffect(() => {
         const arrErrors = Object.values(errors);
         if (arrErrors.length > 0) {
@@ -152,22 +149,9 @@ const SignupPage = () => {
                 </Field>
                 <Field>
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                        type={togglePassWord ? "text" : "password"}
-                        name="password"
-                        placeholder="Please enter your password"
+                    <InputPasswordToggle
                         control={control}
-                    >
-                        {!togglePassWord ? (
-                            <IconEyeClose
-                                onClick={() => setTogglePassWord(true)}
-                            ></IconEyeClose>
-                        ) : (
-                            <IconEyeOpen
-                                onClick={() => setTogglePassWord(false)}
-                            ></IconEyeOpen>
-                        )}
-                    </Input>
+                    ></InputPasswordToggle>
                 </Field>
                 <div className="have-account">
                     You already have an account?{" "}

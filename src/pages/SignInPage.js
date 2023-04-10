@@ -2,7 +2,7 @@ import { Field } from "components/field";
 import { Input } from "../components/input/input";
 import { Label } from "../components/label/label";
 import { useAuth } from "contexts/auth-context";
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -11,9 +11,9 @@ import { Button } from "components/button";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
-import { IconEyeClose, IconEyeOpen } from "components/icon";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "firebase-app/firebase-config";
+import InputPasswordToggle from "components/input/InputPasswordToggle";
 
 const scheme = yup.object({
     email: yup
@@ -34,8 +34,6 @@ const SignInPage = () => {
         mode: "onChange",
         resolver: yupResolver(scheme),
     });
-    const [togglePassWord, setTogglePassWord] = useState(false);
-
     useEffect(() => {
         const arrErrors = Object.values(errors);
         if (arrErrors.length > 0) {
@@ -76,22 +74,9 @@ const SignInPage = () => {
                 </Field>
                 <Field>
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                        type={togglePassWord ? "text" : "password"}
-                        name="password"
-                        placeholder="Please enter your password"
+                    <InputPasswordToggle
                         control={control}
-                    >
-                        {!togglePassWord ? (
-                            <IconEyeClose
-                                onClick={() => setTogglePassWord(true)}
-                            ></IconEyeClose>
-                        ) : (
-                            <IconEyeOpen
-                                onClick={() => setTogglePassWord(false)}
-                            ></IconEyeOpen>
-                        )}
-                    </Input>
+                    ></InputPasswordToggle>
                 </Field>
                 <div className="have-account">
                     You have not had an account?{" "}
