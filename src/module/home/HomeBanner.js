@@ -45,7 +45,14 @@ const HomeBanner = () => {
                         magna aliqua. Ut enim ad minim veniam, quis nostrud
                         exercitation ullamco laboris nisi.
                     </p>
-                    <Button to="/sign-up">Get Started</Button>
+                    <Button
+                        to="/sign-up"
+                        style={{
+                            background: "white",
+                        }}
+                    >
+                        Get Started
+                    </Button>
                 </div>
                 <div className="banner-image">
                     <img src="/img-banner.png" alt="banner" />

@@ -1,51 +1,8 @@
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-* {
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
-    height: 100%;
-}
-body {
-    line-height: 1.5;
-    // -webkit-font-smoothing: antialiased;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-img,
-picture,
-video,
-canvas,
-svg {
-    display: block;
-    max-width: 100%;
-}
-input,
-textarea,
-select {
-    font: inherit;
-    outline: none;
-    border: none;
-}
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    overflow-wrap: break-word;
-}
+@import "reset";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "content";
 body {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
@@ -53,7 +10,7 @@ body {
 }
 .container {
     width: 100%;
-    max-width: 1180px;
+    max-width: 1260px;
     margin: 0 auto;
     padding: 0 20px;
     margin-bottom: 40px;
@@ -98,5 +55,34 @@ a {
     padding-bottom: 40px;
     @media screen and (min-width: 1024px) {
         padding-bottom: 60px;
+    }
+}
+.hidden-input {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+}
+.form-layout {
+    @apply grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 mb-5 lg:mb-10;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    box-shadow: 0 0 0 30px white inset;
+}
+.quill {
+    position: relative;
+    .ql-toolbar {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
     }
 }

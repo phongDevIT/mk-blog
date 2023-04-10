@@ -11,10 +11,12 @@ svg {
     max-width: 100%;
 }
 input,
+button,
 textarea,
 select {
     font: inherit;
     outline: none;
+    border: none;
 }
 p,
 h1,

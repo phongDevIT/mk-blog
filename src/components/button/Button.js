@@ -40,7 +40,6 @@ const Button = ({
     type = "button",
     onClick = () => {},
     children,
-
     ...props
 }) => {
     const { isLoading, to } = props;
