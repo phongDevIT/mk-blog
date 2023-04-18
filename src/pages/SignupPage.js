@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Label } from "../components/label/label";
+import React, { useEffect } from "react";
+import Label from "../components/label/Label";
 import { useForm } from "react-hook-form";
 import { Input } from "../components/input/input";
 import Field from "../components/field/Field";
@@ -10,9 +10,10 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
+import slugify from "slugify";
 // const SignupPageStyles = styled.div`
 //     min-height: 100vh;
 //     padding: 40px;
@@ -80,8 +81,6 @@ const SignupPage = () => {
         control,
         handleSubmit,
         formState: { errors, isValid, isSubmitting },
-        watch,
-        reset,
     } = useForm({
         mode: "onChange",
         resolver: yupResolver(scheme),
@@ -96,12 +95,20 @@ const SignupPage = () => {
         await updateProfile(auth.currentUser, {
             displayName: values.fullname,
         });
-        const colRef = collection(db, "users");
-        await addDoc(colRef, {
+        // const colRef = collection(db, "users");
+
+        // id user
+        await setDoc(doc(db, "users", auth.currentUser.uid), {
             fullname: values.fullname,
             email: values.email,
             password: values.password,
+            username: slugify(values.fullname, { lower: true }),
         });
+        // await addDoc(colRef, {
+        //     fullname: values.fullname,
+        //     email: values.email,
+        //     password: values.password,
+        // });
         toast.success("Bạn đã tạo tài khoản thành công");
         navigate("/");
         // return new Promise((resolve) => {

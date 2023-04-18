@@ -21,8 +21,8 @@ const PostNewestItemStyles = styled.div`
             display: block;
             flex-shrink: 0;
             width: 180px;
-            border-radius: 12px;
             height: 130px;
+            border-radius: 12px;
         }
         &-category {
             margin-bottom: 10px;

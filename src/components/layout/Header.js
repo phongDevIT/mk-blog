@@ -132,17 +132,21 @@ const Header = () => {
                         <Button
                             // style={{ maxWidth: "200px" }}
                             height="56px"
-                            className="header-button"
+                            className="text-center text-white header-button bg-gradient-to-r from-teal-500 to-green-400"
                             to="/sign-up"
                         >
                             Sign Up
                         </Button>
                     ) : (
-                        <div className="header-auth">
-                            <span>Welcome back, </span>
-                            <strong className="text-color">
-                                {getLastName(userInfo?.displayName)}
-                            </strong>
+                        <div className="rounded-lg header-auth">
+                            <Button
+                                type="button"
+                                height="56px"
+                                className="text-white rounded-lg header-button header-auth bg-gradient-to-r from-teal-500 to-green-400"
+                                to="/dashboard"
+                            >
+                                Dashboard
+                            </Button>
                         </div>
                     )}
                 </div>

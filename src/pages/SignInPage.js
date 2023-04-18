@@ -1,6 +1,6 @@
 import { Field } from "components/field";
 import { Input } from "../components/input/input";
-import { Label } from "../components/label/label";
+import Label from "../components/label/Label";
 import { useAuth } from "contexts/auth-context";
 import React from "react";
 import { useEffect } from "react";

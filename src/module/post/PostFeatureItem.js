@@ -1,4 +1,17 @@
-import React from "react";
+import { async } from "@firebase/util";
+import { db } from "firebase-app/firebase-config";
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+} from "firebase/firestore";
+import { func } from "prop-types";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import slugify from "slugify";
 import styled from "styled-components";
 import PostCategory from "./PostCategory";
 import PostImage from "./PostImage";
@@ -11,9 +24,12 @@ const PostFeatureItemStyles = styled.div`
     height: 169px;
     .post {
         &-image {
-            width: 100%;
-            height: 100%;
+            /* width: 100%;
+            height: 100%; */
+            width: 374px;
+            height: 300px;
             border-radius: 16px;
+            object-fit: cover;
         }
         &-overlay {
             position: absolute;
@@ -46,22 +62,62 @@ const PostFeatureItemStyles = styled.div`
         height: 272px;
     }
 `;
-const PostFeatureItem = () => {
+const PostFeatureItem = ({ data }) => {
+    const [category, setCategory] = useState("");
+    const [user, setUser] = useState("");
+    useEffect(() => {
+        async function fetch() {
+            const colRef = collection(db, "categories");
+            const q = query(colRef, where("status", "==", 1));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                setCategory(doc.data());
+            });
+        }
+
+        fetch();
+    }, []);
+    useEffect(() => {
+        async function fetchUser() {
+            console.log("Fetching user with ID", data.userId);
+            const colRef = collection(db, "users");
+            const userDoc = doc(colRef, data.userId);
+            const userSnapshot = await getDoc(userDoc);
+            if (userSnapshot.exists()) {
+                setUser(userSnapshot.data());
+            } else {
+                console.log("User not found with ID", data.userId);
+            }
+        }
+
+        fetchUser();
+    }, []);
+    if (!data || !data.id) return null;
+    const date = data?.createAt?.seconds
+        ? new Date(data?.createAt?.seconds * 1000)
+        : new Date();
+    const formaDate = new Date(date).toLocaleDateString("vi-VI");
+    console.log("date-time: ", date);
+
     return (
         <PostFeatureItemStyles>
-            <PostImage
-                url="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2662&q=80"
-                alt="unsplash"
-                to="/"
-            ></PostImage>
+            <PostImage url={data.image} alt="unsplash" to="/"></PostImage>
             <div className="post-overlay"></div>
             <div className="post-content">
                 <div className="post-top">
-                    <PostCategory>Kiến Thức</PostCategory>
-                    <PostMeta></PostMeta>
+                    {category?.name && (
+                        <PostCategory to={category.slug}>
+                            {category.name}
+                        </PostCategory>
+                    )}
+                    <PostMeta
+                        to={slugify(user?.fullname || "", { lower: true })}
+                        authorName={user?.fullname}
+                        date={formaDate}
+                    ></PostMeta>
                 </div>
-                <PostTitle size="big">
-                    Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+                <PostTitle to={data.slug} size="big">
+                    {data.title}
                 </PostTitle>
             </div>
         </PostFeatureItemStyles>

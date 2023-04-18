@@ -17,4 +17,4 @@ const Label = ({ htmlFor = "", children, ...props }) => {
     );
 };
 
-export { Label };
+export default Label;
