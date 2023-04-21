@@ -133,6 +133,7 @@ const Header = () => {
                             // style={{ maxWidth: "200px" }}
                             height="56px"
                             className="text-center text-white header-button bg-gradient-to-r from-teal-500 to-green-400"
+                            // style={{ color: "white" }}
                             to="/sign-up"
                         >
                             Sign Up

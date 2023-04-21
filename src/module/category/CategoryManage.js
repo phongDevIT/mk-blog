@@ -9,9 +9,11 @@ import {
     deleteDoc,
     doc,
     getDoc,
+    getDocs,
     limit,
     onSnapshot,
     query,
+    startAfter,
     where,
 } from "firebase/firestore";
 import { db } from "firebase-app/firebase-config";
@@ -67,6 +69,7 @@ const CategoryManage = () => {
             }
         });
     };
+
     return (
         <div>
             <DashboardHeading title="Categories" desc="Manage your category">

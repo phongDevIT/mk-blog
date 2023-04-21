@@ -6,7 +6,7 @@ import { Label } from "components/label";
 import DashboardHeading from "../../pages/DashboardHeading";
 import React from "react";
 import { useForm } from "react-hook-form";
-
+// không lam ben nay
 const UserAddNew = () => {
     const { control } = useForm({
         mode: "onChange",

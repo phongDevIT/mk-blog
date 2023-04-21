@@ -16,6 +16,8 @@ import { useEffect } from "react";
 import {
     addDoc,
     collection,
+    doc,
+    getDoc,
     getDocs,
     query,
     serverTimestamp,
@@ -36,8 +38,10 @@ const PostAddNew = () => {
                 title: "",
                 slug: "",
                 status: 2,
-                categoryId: "",
                 hot: false,
+                category: {},
+                image: "",
+                user: {},
             },
         });
     const {
@@ -50,6 +54,19 @@ const PostAddNew = () => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const [selectCategory, setSelectCategory] = useState("");
+    useEffect(() => {
+        async function fetchUserData() {
+            if (!userInfo.uid) return;
+            const colRef = doc(db, "users", userInfo.uid);
+            const docData = await getDoc(colRef);
+            setValue("user", {
+                id: docData.id,
+                ...docData.data(),
+            });
+        }
+        fetchUserData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userInfo.uid]);
     const addPostHandler = async (values) => {
         try {
             setLoading(true);
@@ -59,10 +76,11 @@ const PostAddNew = () => {
             });
             cloneValues.status = Number(values.status);
             const colRef = collection(db, "posts");
+            // console.log("cloneValues: ", cloneValues);
             await addDoc(colRef, {
                 ...cloneValues,
                 image,
-                userId: userInfo.uid,
+                // userId: userInfo.uid,
                 createAt: serverTimestamp(),
             });
             toast.success("Create new post successfully");
@@ -70,9 +88,10 @@ const PostAddNew = () => {
                 title: "",
                 slug: "",
                 status: 2,
-                categoryId: "",
+                category: {},
                 hot: false,
                 image: "",
+                user: {},
             });
             handleResetUpload();
             setSelectCategory({});
@@ -104,9 +123,14 @@ const PostAddNew = () => {
 
     const watchStatus = watch("status");
     const watchHot = watch("hot");
-    // const watchCategory = watch("category");
-    const handleClickOption = (item) => {
-        setValue("category", item.id);
+    const handleClickOption = async (item) => {
+        const colRef = doc(db, "categories", item.id);
+        const docData = await getDoc(colRef);
+        setValue("category", {
+            id: docData.id,
+            ...docData.data(),
+        });
+        // setValue("category", item.id);
         setSelectCategory(item);
     };
     return (

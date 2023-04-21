@@ -10,10 +10,11 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
 import { NavLink, useNavigate } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import slugify from "slugify";
+import { userRole, userStatus } from "utils/constants";
 // const SignupPageStyles = styled.div`
 //     min-height: 100vh;
 //     padding: 40px;
@@ -94,6 +95,8 @@ const SignupPage = () => {
         );
         await updateProfile(auth.currentUser, {
             displayName: values.fullname,
+            photoURL:
+                "https://plus.unsplash.com/premium_photo-1681248156475-be7454b5d54b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0OHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
         });
         // const colRef = collection(db, "users");
 
@@ -103,6 +106,10 @@ const SignupPage = () => {
             email: values.email,
             password: values.password,
             username: slugify(values.fullname, { lower: true }),
+            avatar: "https://plus.unsplash.com/premium_photo-1681248156475-be7454b5d54b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0OHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
+            status: userStatus.ACTIVE,
+            role: userRole.USER,
+            createdAt: serverTimestamp(),
         });
         // await addDoc(colRef, {
         //     fullname: values.fullname,

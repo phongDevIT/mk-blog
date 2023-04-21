@@ -15,6 +15,8 @@ import UserProfile from "drafts/UserProfile";
 import UserManage from "module/user/UserManage";
 import CategoryManage from "module/category/CategoryManage";
 import CategoryUpdate from "module/category/CategoryUpdate";
+import UserUpdate from "module/user/UserUpdate";
+import PostUpdate from "module/post/PostUpdate";
 function App() {
     return (
         <div>
@@ -65,6 +67,14 @@ function App() {
                         <Route
                             path="/manage/user"
                             element={<UserManage></UserManage>}
+                        ></Route>
+                        <Route
+                            path="/manage/update-user"
+                            element={<UserUpdate></UserUpdate>}
+                        ></Route>
+                        <Route
+                            path="/manage/update-post"
+                            element={<PostUpdate></PostUpdate>}
                         ></Route>
                         <Route
                             path="/manage/category"

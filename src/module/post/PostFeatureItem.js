@@ -63,6 +63,7 @@ const PostFeatureItemStyles = styled.div`
     }
 `;
 const PostFeatureItem = ({ data }) => {
+    // console.log("data: ", data);
     const [category, setCategory] = useState("");
     const [user, setUser] = useState("");
     useEffect(() => {
@@ -79,7 +80,6 @@ const PostFeatureItem = ({ data }) => {
     }, []);
     useEffect(() => {
         async function fetchUser() {
-            console.log("Fetching user with ID", data.userId);
             const colRef = collection(db, "users");
             const userDoc = doc(colRef, data.userId);
             const userSnapshot = await getDoc(userDoc);
@@ -97,8 +97,6 @@ const PostFeatureItem = ({ data }) => {
         ? new Date(data?.createAt?.seconds * 1000)
         : new Date();
     const formaDate = new Date(date).toLocaleDateString("vi-VI");
-    console.log("date-time: ", date);
-
     return (
         <PostFeatureItemStyles>
             <PostImage url={data.image} alt="unsplash" to="/"></PostImage>

@@ -5,7 +5,7 @@ import styled from "styled-components";
 const PostMetaStyles = styled.div`
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 24px;
     font-size: 14px;
     font-weight: 600;
     color: inherit;
@@ -15,6 +15,10 @@ const PostMetaStyles = styled.div`
         height: 4px;
         background-color: currentColor;
         border-radius: 100rem;
+    }
+    @media screen and (max-width: 1023.98px) {
+        font-size: 10px;
+        gap: 6px;
     }
 `;
 const PostMeta = ({
