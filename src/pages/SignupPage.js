@@ -9,61 +9,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import slugify from "slugify";
 import { userRole, userStatus } from "utils/constants";
-// const SignupPageStyles = styled.div`
-//     min-height: 100vh;
-//     padding: 40px;
-//     .logo {
-//         margin: 0 auto 20px;
-//     }
-//     .heading {
-//         text-align: center;
-//         color: ${(props) => props.theme.primary};
-//         font-weight: bold;
-//         font-size: 40px;
-//         margin-bottom: 40px;
-//     }
-//     /* .field {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: flex-start;
-//         row-gap: 20px;
-//     } */
-//     /* .label {
-//         color: ${(props) => props.theme.grayDark};
-//         font-weight: 600;
-//         font-size: 20px;
-//         line-height: 30px;
-//         cursor: pointer;
-//     } */
-//     /* .input {
-//         border: 1px solid #00b4aa;
-//         padding: 15px;
-//         border-radius: 8px;
-//         width: 100%;
-//         background-color: ${(props) => props.theme.grayLight};
-//         transition: all 0.2s linear;
-//     }
-//     .input:focus {
-//         background-color: white;
-//         border-color: ${(props) => props.theme.primary};
-//     }
-//     .input::-webkit-input-placeholder {
-//         color: ${(props) => props.theme.grayplace};
-//     }
-//     .input::-moz-input-placeholder {
-//         color: ${(props) => props.theme.grayplace};
-//     } */
-//     .form {
-//         max-width: 800px;
-//         margin: 0 auto;
-//     }
-// `;
+import { useHistory } from "react-router-dom";
+import { useAuth } from "contexts/auth-context";
 const scheme = yup.object({
     fullname: yup.string().required("Please enter your name"),
     email: yup
@@ -98,9 +51,7 @@ const SignupPage = () => {
             photoURL:
                 "https://plus.unsplash.com/premium_photo-1681248156475-be7454b5d54b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw0OHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60",
         });
-        // const colRef = collection(db, "users");
 
-        // id user
         await setDoc(doc(db, "users", auth.currentUser.uid), {
             fullname: values.fullname,
             email: values.email,
@@ -117,7 +68,8 @@ const SignupPage = () => {
         //     password: values.password,
         // });
         toast.success("Bạn đã tạo tài khoản thành công");
-        navigate("/");
+        navigate("/sign-in");
+
         // return new Promise((resolve) => {
         //     setTimeout(() => {
         //         resolve();
@@ -133,8 +85,10 @@ const SignupPage = () => {
             });
         }
     }, [errors]);
+    const { userInfo } = useAuth();
     useEffect(() => {
         document.title = "Register Page";
+        // if (userInfo.email) navigate("/");
     }, []);
     return (
         <AuthenticationPage>
@@ -168,7 +122,7 @@ const SignupPage = () => {
                     ></InputPasswordToggle>
                 </Field>
                 <div className="have-account">
-                    You already have an account?{" "}
+                    You already have an account?
                     <NavLink to={"/sign-in"}>Login</NavLink>
                 </div>
                 <Button

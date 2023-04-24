@@ -3,7 +3,6 @@ import { db } from "firebase-app/firebase-config";
 import {
     collection,
     limit,
-    limitToLast,
     onSnapshot,
     query,
     where,
@@ -22,7 +21,7 @@ const HomeFeature = () => {
             colRef,
             where("status", "==", 1),
             where("hot", "==", true),
-            limit(3)
+            limit(50)
         );
         onSnapshot(queries, (snapshot) => {
             const results = [];

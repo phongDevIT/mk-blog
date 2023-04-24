@@ -3,6 +3,7 @@ import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
 import { LabelStatus } from "components/label";
 import { Table } from "components/table";
+import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import {
     collection,
@@ -21,7 +22,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { postStatus } from "utils/constants";
+import { postStatus, userRole } from "utils/constants";
 const POST_PER_PAGE = 1;
 const PostManage = () => {
     const [postList, setPostList] = useState([]);
@@ -114,13 +115,15 @@ const PostManage = () => {
             documentSnapshots.docs[documentSnapshots.docs.length - 1];
         setLastDoc(lastVisible);
     };
+    // const { userInfo } = useAuth();
+    // if (userInfo.role !== userRole.ADMIN) return null;
     return (
         <div>
             <DashboardHeading
                 title="All posts"
                 desc="Manage all posts"
             ></DashboardHeading>
-            <div className="mb-10 flex justify-end gap-5">
+            <div className="flex justify-end gap-5 mb-10">
                 <div className="w-full max-w-[200px]">
                     <Dropdown>
                         <Dropdown.Select placeholder="Category"></Dropdown.Select>
@@ -129,7 +132,7 @@ const PostManage = () => {
                 <div className="w-full max-w-[300px]">
                     <input
                         type="text"
-                        className="w-full p-4 rounded-lg border border-solid border-gray-300"
+                        className="w-full p-4 border border-gray-300 border-solid rounded-lg"
                         placeholder="Search post..."
                         onChange={handleSearchPost}
                     />
@@ -187,7 +190,7 @@ const PostManage = () => {
                                     </td>
                                     <td>{renderPostStatus(post.status)}</td>
                                     <td>
-                                        <div className="flex items-center gap-x-3 text-gray-500">
+                                        <div className="flex items-center text-gray-500 gap-x-3">
                                             <ActionView
                                                 onClick={() =>
                                                     navigate(`/${post.slug}`)

@@ -47,7 +47,7 @@ const SignInPage = () => {
     const navigate = useNavigate();
     useEffect(() => {
         document.title = "Login Page";
-        if (userInfo.email) navigate("/");
+        // if (userInfo.email) navigate("/");
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -79,7 +79,7 @@ const SignInPage = () => {
                     ></InputPasswordToggle>
                 </Field>
                 <div className="have-account">
-                    You have not had an account?{" "}
+                    You have not had an account?
                     <NavLink to={"/sign-up"}>Register account</NavLink>
                 </div>
                 <Button
@@ -91,7 +91,6 @@ const SignInPage = () => {
                         backgroundColor: "#1DC071",
                         color: "white",
                     }}
-                    // className="max-w-[350px] mx-auto w-full"
                     isLoading={isSubmitting}
                     disabled={isSubmitting}
                 >

@@ -3,9 +3,13 @@ import DashboardHeading from "../../pages/DashboardHeading";
 import React from "react";
 import UserTable from "./UserTable";
 import { useState } from "react";
+import { useAuth } from "contexts/auth-context";
+import { userRole } from "utils/constants";
 
 const UserManage = () => {
     const [userList, setUserList] = useState();
+    // const { userInfo } = useAuth();
+    // if (userInfo.role !== userRole.ADMIN) return null;
     return (
         <div>
             <DashboardHeading
@@ -15,7 +19,7 @@ const UserManage = () => {
             <div className="flex justify-end mb-10">
                 <Button
                     to="/manage/add-user"
-                    className=" bg-gradient-to-r from-teal-500 to-green-400 text-white"
+                    className="text-white bg-gradient-to-r from-teal-500 to-green-400"
                 >
                     Add new user
                 </Button>

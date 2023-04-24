@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { db } from "firebase-app/firebase-config";
 import {
     collection,
@@ -8,7 +7,6 @@ import {
     query,
     where,
 } from "firebase/firestore";
-import { func } from "prop-types";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import slugify from "slugify";
@@ -63,7 +61,6 @@ const PostFeatureItemStyles = styled.div`
     }
 `;
 const PostFeatureItem = ({ data }) => {
-    // console.log("data: ", data);
     const [category, setCategory] = useState("");
     const [user, setUser] = useState("");
     useEffect(() => {

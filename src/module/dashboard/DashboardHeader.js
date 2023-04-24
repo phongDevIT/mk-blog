@@ -1,4 +1,5 @@
 import { Button } from "components/button";
+import { useAuth } from "contexts/auth-context";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -23,6 +24,7 @@ const DashboardHeaderStyles = styled.div`
 `;
 
 const DashboardHeader = () => {
+    const { userInfo } = useAuth();
     return (
         <DashboardHeaderStyles>
             <Button
@@ -38,11 +40,7 @@ const DashboardHeader = () => {
                 Write new post
             </Button>
             <Link to="/profile" className="header-avatar">
-                <img
-                    to="/profile"
-                    src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
-                    alt=""
-                />
+                <img to="/profile" src={userInfo?.avatar} alt="" />
             </Link>
         </DashboardHeaderStyles>
     );

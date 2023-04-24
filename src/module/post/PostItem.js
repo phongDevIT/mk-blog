@@ -40,7 +40,7 @@ const PostItem = ({ data }) => {
             </PostCategory>
             <PostTitle to={data?.slug}>{data.title}</PostTitle>
             <PostMeta
-                to={slugify(data.user?.fullname || "", { lower: true })}
+                to={slugify(data.user?.username || "", { lower: true })}
                 authorName={data.user?.fullname}
                 date={formaDate}
             ></PostMeta>

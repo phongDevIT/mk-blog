@@ -9,11 +9,13 @@ import NotFoundPage from "./NotFoundPage";
 import Layout from "components/layout/Layout";
 import Authorbox from "components/author/Authorbox";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { db } from "firebase-app/firebase-config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import slugify from "slugify";
+import { useAuth } from "contexts/auth-context";
+import { postStatus, userRole } from "utils/constants";
 const PostDetailsPageStyles = styled.div`
     padding-bottom: 100px;
     .post {
@@ -76,7 +78,7 @@ const PostDetailsPageStyles = styled.div`
     }
 `;
 
-const PostDetailsPage = () => {
+const PostDetailsPage = ({ data }) => {
     const { slug } = useParams();
     const [postInfo, setPostInfo] = useState();
     useEffect(() => {
@@ -97,10 +99,12 @@ const PostDetailsPage = () => {
     useEffect(() => {
         document.body.scrollIntoView({ behavior: "smooth", block: "start" });
     }, [slug]);
+
     if (!slug) return <NotFoundPage></NotFoundPage>;
     if (!postInfo || !postInfo.title) return null;
 
-    const { user } = postInfo;
+    // const { user } = postInfo;
+    const user = postInfo?.user;
     return (
         <PostDetailsPageStyles>
             <Layout>
@@ -118,8 +122,12 @@ const PostDetailsPage = () => {
                                 {postInfo.category?.name}
                             </PostCategory>
                             <h1 className="post-heading">{postInfo.title}</h1>
-                            <PostMeta></PostMeta>
-                            {/* de daday chuaan bij lam author */}
+                            <PostMeta
+                                authorName={postInfo?.user?.fullname}
+                                date={new Date(
+                                    postInfo.createAt?.seconds * 1000
+                                ).toLocaleDateString("vi-VI")}
+                            ></PostMeta>
                         </div>
                     </div>
                     <div className="post-content">

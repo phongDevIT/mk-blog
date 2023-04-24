@@ -228,12 +228,6 @@ const PostAddNew = () => {
                                                 </Dropdown.Option>
                                             ))}
                                     </Dropdown.List>
-                                    {/* <Dropdown.Option>
-                                        Blockchain
-                                    </Dropdown.Option>
-                                    <Dropdown.Option>Setup</Dropdown.Option>
-                                    <Dropdown.Option>Nature</Dropdown.Option>
-                                    <Dropdown.Option>Developer</Dropdown.Option> */}
                                 </Dropdown>
                                 {selectCategory?.name && (
                                     <span className="inline-block p-3 text-sm font-medium text-green-600 bg-green-100 rounded-lg ">
@@ -245,30 +239,7 @@ const PostAddNew = () => {
                             <Field></Field>
                         </div>
                     </Field>
-                    <div className="grid grid-cols-2 gap-x-10 mt-[-80px]">
-                        <Field>
-                            <Label>Author</Label>
-                            <Input
-                                control={control}
-                                placeholder="Find the author"
-                            ></Input>
-                        </Field>
-                    </div>
                 </div>
-                {/* <div className="grid grid-cols-2 mb-10 gap-x-10">
-                    <Field>
-                        <Label>Category</Label>
-                        <Dropdown>
-                            <Dropdown.Option>Knowledge</Dropdown.Option>
-                            <Dropdown.Option>Blockchain</Dropdown.Option>
-                            <Dropdown.Option>Setup</Dropdown.Option>
-                            <Dropdown.Option>Nature</Dropdown.Option>
-                            <Dropdown.Option>Developer</Dropdown.Option>
-                        </Dropdown>
-                    </Field>
-
-                    <Field></Field>
-                </div> */}
                 <Button
                     type="submit"
                     className="mx-auto w-[200px]"

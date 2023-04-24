@@ -105,8 +105,10 @@ const PostUpdate = () => {
         setSelectCategory(item);
     };
     const updatePostHandler = async (values) => {
+        console.log("values: ", values);
         if (!isValid) return;
         const docRef = doc(db, "posts", postId);
+        values.status = Number(values.status);
         await updateDoc(docRef, {
             ...values,
             content,

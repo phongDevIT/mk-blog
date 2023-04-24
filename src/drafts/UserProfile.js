@@ -6,28 +6,42 @@ import Label from "../components/label/Label";
 import DashboardHeading from "./DashboardHeading";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const UserProfile = () => {
-    const { control } = useForm({
+    const navigate = useNavigate();
+    const {
+        control,
+        reset,
+        handleSubmit,
+        formState: { isValid, isSubmitting },
+    } = useForm({
         mode: "onChange",
+        defaultValues: {},
     });
+    const [params] = useSearchParams();
+    const userId = params.get("id");
+
+    const handleUpdateProfile = async (values) => {
+        if (isValid) return;
+    };
     return (
         <div>
             <DashboardHeading
                 title="Account information"
-                desc="Update your account information"
+                desc={`Update your account information id: ${userId}`}
             ></DashboardHeading>
-            <form>
+            <form onSubmit={handleSubmit(handleUpdateProfile)}>
                 <div className="mb-10 text-center">
                     <ImageUpload className="w-[200px] h-[200px] !rounded-full min-h-0 mx-auto"></ImageUpload>
                 </div>
                 <div className="form-layout">
                     <Field>
-                        <Label>Fullname</Label>
+                        <Label>Full name</Label>
                         <Input
                             control={control}
-                            name="fullname"
-                            placeholder="Enter your fullname"
+                            name="fullName"
+                            placeholder="Enter your full name"
                         ></Input>
                     </Field>
                     <Field>
@@ -92,6 +106,8 @@ const UserProfile = () => {
                 <Button
                     type="submit"
                     className="mx-auto w-[200px] bg-gradient-to-r from-teal-500 to-green-400 text-white"
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
                 >
                     Update
                 </Button>
