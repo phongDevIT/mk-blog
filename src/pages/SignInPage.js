@@ -1,7 +1,6 @@
 import { Field } from "components/field";
 import { Input } from "../components/input/input";
 import Label from "../components/label/Label";
-import { useAuth } from "contexts/auth-context";
 import React from "react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -43,7 +42,7 @@ const SignInPage = () => {
             });
         }
     }, [errors]);
-    const { userInfo } = useAuth();
+    // const { userInfo } = useAuth();
     const navigate = useNavigate();
     useEffect(() => {
         document.title = "Login Page";

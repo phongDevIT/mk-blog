@@ -3,8 +3,6 @@ import DashboardHeading from "../../pages/DashboardHeading";
 import React from "react";
 import UserTable from "./UserTable";
 import { useState } from "react";
-import { useAuth } from "contexts/auth-context";
-import { userRole } from "utils/constants";
 
 const UserManage = () => {
     const [userList, setUserList] = useState();

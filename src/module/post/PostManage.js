@@ -3,7 +3,6 @@ import { Button } from "components/button";
 import { Dropdown } from "components/dropdown";
 import { LabelStatus } from "components/label";
 import { Table } from "components/table";
-import { useAuth } from "contexts/auth-context";
 import { db } from "firebase-app/firebase-config";
 import {
     collection,

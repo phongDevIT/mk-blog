@@ -3,14 +3,7 @@ import { LabelStatus } from "components/label";
 import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
 import { deleteUser } from "firebase/auth";
-import {
-    collection,
-    deleteDoc,
-    doc,
-    onSnapshot,
-    query,
-    where,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -88,7 +81,7 @@ const UserTable = () => {
                         <img
                             src={user?.avatar}
                             alt=""
-                            className="w-10 h-10 object-cover rounded-md flex-shrink-0"
+                            className="flex-shrink-0 object-cover w-10 h-10 rounded-md"
                         />
                         <div className="flex-1">
                             <h3>{user.fullname}</h3>

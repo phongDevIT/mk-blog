@@ -9,13 +9,10 @@ import NotFoundPage from "./NotFoundPage";
 import Layout from "components/layout/Layout";
 import Authorbox from "components/author/Authorbox";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { db } from "firebase-app/firebase-config";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import slugify from "slugify";
-import { useAuth } from "contexts/auth-context";
-import { postStatus, userRole } from "utils/constants";
 const PostDetailsPageStyles = styled.div`
     padding-bottom: 100px;
     .post {

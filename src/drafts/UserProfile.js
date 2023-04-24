@@ -12,7 +12,6 @@ const UserProfile = () => {
     const navigate = useNavigate();
     const {
         control,
-        reset,
         handleSubmit,
         formState: { isValid, isSubmitting },
     } = useForm({

@@ -9,14 +9,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "firebase-app/firebase-config";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import AuthenticationPage from "./AuthenticationPage";
 import InputPasswordToggle from "components/input/InputPasswordToggle";
 import slugify from "slugify";
 import { userRole, userStatus } from "utils/constants";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "contexts/auth-context";
 const scheme = yup.object({
     fullname: yup.string().required("Please enter your name"),
     email: yup
@@ -85,7 +83,7 @@ const SignupPage = () => {
             });
         }
     }, [errors]);
-    const { userInfo } = useAuth();
+    // const { userInfo } = useAuth();
     useEffect(() => {
         document.title = "Register Page";
         // if (userInfo.email) navigate("/");

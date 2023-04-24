@@ -1,5 +1,5 @@
 import DashboardHeading from "../../drafts/DashboardHeading";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Table } from "components/table";
 import { LabelStatus } from "components/label";
 import { ActionDelete, ActionEdit, ActionView } from "components/action";
@@ -8,12 +8,8 @@ import {
     collection,
     deleteDoc,
     doc,
-    getDoc,
-    getDocs,
-    limit,
     onSnapshot,
     query,
-    startAfter,
     where,
 } from "firebase/firestore";
 import { db } from "firebase-app/firebase-config";
