@@ -79,6 +79,8 @@ const PostAddNew = () => {
             // console.log("cloneValues: ", cloneValues);
             await addDoc(colRef, {
                 ...cloneValues,
+                categoryId: cloneValues.category.id,
+                userId: cloneValues.user.id,
                 image,
                 // userId: userInfo.uid,
                 createAt: serverTimestamp(),

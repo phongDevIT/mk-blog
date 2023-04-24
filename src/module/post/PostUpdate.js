@@ -24,14 +24,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { postStatus } from "utils/constants";
-import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import ReactQuill, { Quill } from "react-quill";
+import ImageUploader from "quill-image-uploader";
+import { useMemo } from "react";
+
+Quill.register("modules/imageUploader", ImageUploader);
+
 const PostUpdate = () => {
     const [params] = useSearchParams();
     const postId = params.get("id");
     const [content, setContent] = useState("");
-    const [loading, setLoading] = useState(false);
     const {
         handleSubmit,
         control,
@@ -67,8 +71,9 @@ const PostUpdate = () => {
             if (docSnapshot.data()) {
                 reset(docSnapshot.data());
                 setSelectCategory(docSnapshot.data()?.category || "");
+                setContent(docSnapshot.data()?.content || "");
             }
-            console.log("docSnapshot: ", docSnapshot.data());
+            // console.log("docSnapshot: ", docSnapshot.data());
         }
         fetchData();
     }, [postId, reset]);
@@ -100,12 +105,35 @@ const PostUpdate = () => {
         setSelectCategory(item);
     };
     const updatePostHandler = async (values) => {
+        if (!isValid) return;
         const docRef = doc(db, "posts", postId);
         await updateDoc(docRef, {
+            ...values,
             content,
         });
         toast.success("Update posts content successfully");
     };
+    const modules = useMemo(
+        () => ({
+            toolbar: [
+                ["bold", "italic", "underline", "strike"],
+                ["blockquote"],
+                [{ header: 1 }, { header: 2 }],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                ["link", "image"],
+            ],
+            // imageUploader: {
+            //     upload: (file) => {
+            //         return new Promise((resolve, reject) => {
+            //             resolve("https://api.imgbb.com/1/upload");
+            //         });
+            //     },
+            // },
+        }),
+        []
+    );
+
     if (!postId) return null;
 
     return (
@@ -233,14 +261,14 @@ const PostUpdate = () => {
                 </div>
                 <div className="mb-10">
                     <Field>
-                        <Label>Contetn</Label>
+                        <Label>Content</Label>
                         <div className="w-full entry-content">
                             <ReactQuill
+                                modules={modules}
                                 theme="snow"
                                 value={content}
                                 onChange={setContent}
                             />
-                            ;
                         </div>
                     </Field>
                 </div>
@@ -266,8 +294,8 @@ const PostUpdate = () => {
                             "linear-gradient(107.61deg, #00a7b4 15.59%, #a4d96c 87.25%)",
                         color: "white",
                     }}
-                    isLoading={loading}
-                    disabled={loading}
+                    isLoading={isSubmitting}
+                    disabled={isSubmitting}
                 >
                     Update post
                 </Button>
