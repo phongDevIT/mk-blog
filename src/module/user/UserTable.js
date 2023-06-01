@@ -1,5 +1,6 @@
 import { ActionDelete, ActionEdit } from "components/action";
-import { LabelStatus } from "components/label";
+// import { LabelStatus } from "components/label";
+import { Label, LabelStatus } from "../../components/label";
 import { Table } from "components/table";
 import { db } from "firebase-app/firebase-config";
 import { deleteUser } from "firebase/auth";

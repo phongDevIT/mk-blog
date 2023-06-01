@@ -4,7 +4,8 @@ import { Dropdown } from "components/dropdown";
 import { Field } from "components/field";
 import ImageUpload from "components/image/ImageUpload";
 import { Input } from "components/input/input";
-import { Label } from "components/label";
+// import { Label } from "components/label";
+import { Label } from "../../components/label";
 import Toggle from "components/toggle/Toggle";
 import { db } from "firebase-app/firebase-config";
 import {

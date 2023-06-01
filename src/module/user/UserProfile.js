@@ -2,7 +2,9 @@ import { Button } from "components/button";
 import { Field } from "components/field";
 import ImageUpload from "components/image/ImageUpload";
 import { Input } from "components/input";
-import { Label } from "components/label";
+// import { Label } from "components/label";
+import { Label } from "../../components/label";
+
 import DashboardHeading from "../../pages/DashboardHeading";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -18,7 +20,7 @@ const UserProfile = () => {
                 desc="Update your account information"
             ></DashboardHeading>
             <form>
-                <div className="text-center mb-10">
+                <div className="mb-10 text-center">
                     <ImageUpload className="w-[200px] h-[200px] !rounded-full min-h-0 mx-auto"></ImageUpload>
                 </div>
                 <div className="form-layout">
