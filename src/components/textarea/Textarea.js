@@ -62,4 +62,5 @@ Textarea.propTypes = {
     children: PropTypes.any,
     control: PropTypes.any.isRequired,
 };
-export { Textarea };
+// export { Textarea };
+export default Textarea;

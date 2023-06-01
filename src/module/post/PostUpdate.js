@@ -25,8 +25,8 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { postStatus } from "utils/constants";
 import "react-quill/dist/quill.snow.css";
-import { toast } from "react-toastify";
 import ReactQuill, { Quill } from "react-quill";
+import { toast } from "react-toastify";
 import ImageUploader from "quill-image-uploader";
 import { useMemo } from "react";
 
@@ -73,7 +73,6 @@ const PostUpdate = () => {
                 setSelectCategory(docSnapshot.data()?.category || "");
                 setContent(docSnapshot.data()?.content || "");
             }
-            // console.log("docSnapshot: ", docSnapshot.data());
         }
         fetchData();
     }, [postId, reset]);
@@ -234,12 +233,6 @@ const PostUpdate = () => {
                                                 </Dropdown.Option>
                                             ))}
                                     </Dropdown.List>
-                                    {/* <Dropdown.Option>
-                                        Blockchain
-                                    </Dropdown.Option>
-                                    <Dropdown.Option>Setup</Dropdown.Option>
-                                    <Dropdown.Option>Nature</Dropdown.Option>
-                                    <Dropdown.Option>Developer</Dropdown.Option> */}
                                 </Dropdown>
                                 {selectCategory?.name && (
                                     <span className="inline-block p-3 text-sm font-medium text-green-600 bg-green-100 rounded-lg ">
@@ -251,15 +244,7 @@ const PostUpdate = () => {
                             <Field></Field>
                         </div>
                     </Field>
-                    <div className="grid grid-cols-2 gap-x-10 mt-[-80px]">
-                        {/* <Field>
-                            <Label>Author</Label>
-                            <Input
-                                control={control}
-                                placeholder="Find the author"
-                            ></Input>
-                        </Field> */}
-                    </div>
+                    <div className="grid grid-cols-2 gap-x-10 mt-[-80px]"></div>
                 </div>
                 <div className="mb-10">
                     <Field>
@@ -274,20 +259,7 @@ const PostUpdate = () => {
                         </div>
                     </Field>
                 </div>
-                {/* <div className="grid grid-cols-2 mb-10 gap-x-10">
-                    <Field>
-                        <Label>Category</Label>
-                        <Dropdown>
-                            <Dropdown.Option>Knowledge</Dropdown.Option>
-                            <Dropdown.Option>Blockchain</Dropdown.Option>
-                            <Dropdown.Option>Setup</Dropdown.Option>
-                            <Dropdown.Option>Nature</Dropdown.Option>
-                            <Dropdown.Option>Developer</Dropdown.Option>
-                        </Dropdown>
-                    </Field>
 
-                    <Field></Field>
-                </div> */}
                 <Button
                     type="submit"
                     className="mx-auto w-[200px]"
